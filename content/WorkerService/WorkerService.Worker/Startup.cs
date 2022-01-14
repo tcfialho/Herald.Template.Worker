@@ -1,8 +1,4 @@
-
-using Herald.ModelBinder;
-using Herald.ModelBinder.Swagger;
 using Herald.Observability.Jaeger.Configurations;
-using Herald.Web.Swagger;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 
 using WorkerService.Application;
 using WorkerService.Infrastructure;
-using WorkerService.Worker.BackgroundServices;
 
 namespace WorkerService.Worker
 {

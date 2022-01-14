@@ -1,12 +1,12 @@
-﻿using Herald.MessageQueue;
+﻿using System;
 
-using System;
+using Herald.MessageQueue;
 
 namespace WorkerService.Application.Features.SendToQueue
 {
-    public class SentToQueueMessage : MessageBase
+    public class SendToQueueMessage : MessageBase
     {
-        public SentToQueueMessage()
+        public SendToQueueMessage()
         {
             Id = Guid.NewGuid();
         }

@@ -33,9 +33,15 @@ services:
         command: >
             "
               while ! nc -z rabbitmq 5672; do echo waiting; sleep 3; done;
-              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare exchange name=SentToQueueExchange type=fanout
-              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare queue name=SentToQueueMessage durable=false
-              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare binding source="SentToQueueExchange" destination="SentToQueueMessage" destination_type="queue"
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare exchange name=WorkerServiceExchange type=fanout
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare queue name=GetFromDataBaseMessageQueue durable=false
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare queue name=GetFromExternalApiMessageQueue durable=false
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare queue name=SendToQueueMessageQueue durable=false
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare queue name=SentToQueueMessageQueue durable=false
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare binding source="WorkerServiceExchange" destination="GetFromDataBaseMessageQueue" destination_type="queue"
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare binding source="WorkerServiceExchange" destination="GetFromExternalApiMessageQueue" destination_type="queue"
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare binding source="WorkerServiceExchange" destination="SendToQueueMessageQueue" destination_type="queue"
+              rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword declare binding source="WorkerServiceExchange" destination="SentToQueueMessageQueue" destination_type="queue"
               rabbitmqadmin --host rabbitmq -umyUserName -pmyPassword list queues
               echo 'RABBIT-DONE!' 
             "

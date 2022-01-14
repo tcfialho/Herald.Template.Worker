@@ -24,6 +24,7 @@ using Herald.MessageQueue.RabbitMq;
 #if (!noexternalapi)
 using Refit;
 using WorkerService.Application.Infrastructure.WebServices;
+using Herald.EntityFramework.Persistance;
 #endif
 
 namespace WorkerService.Infrastructure
@@ -52,11 +53,11 @@ namespace WorkerService.Infrastructure
             {
                 options.UseLazyLoadingProxies();
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")).UseSnakeCaseNamingConvention();
-            });
+            }, ServiceLifetime.Singleton);
 
-            services.AddHeraldEntityFramework<EntityContext>();
+            services.AddHeraldEntityFramework<EntityContext>(ServiceLifetime.Singleton);
 
-            services.AddTransient<ISomethingRepository, SomethingRepository>();
+            services.AddSingleton<ISomethingRepository, SomethingRepository>();
 
             return services;
         }

@@ -6,20 +6,24 @@
 		<UserSecretsId>76f42217-1e5d-423c-ae5c-808fae60f813</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
-	  <Compile Remove="Controllers\**" />
-	  <Content Remove="Controllers\**" />
-	  <EmbeddedResource Remove="Controllers\**" />
-	  <None Remove="Controllers\**" />
+		<Folder Include="BackgroundServices\" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(nodatabase)' == 'true'">
+		<Compile Remove="BackgroundServices\ProcessGetFromDataBaseService.cs" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(noexternalapi)' == 'true'">
+		<Compile Remove="BackgroundServices\ProcessGetFromExternalApiService.cs" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(noqueue)' == 'true'">
+		<Compile Remove="BackgroundServices\ProcessSendToQueueService.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Herald.ModelBinder" Version="1.0.1" />
-		<PackageReference Include="Herald.ModelBinder.Swagger" Version="1.0.1" />
 		<PackageReference Include="Herald.Observability.Jaeger" Version="1.0.0" />
 		<PackageReference Include="Herald.Result.Mvc" Version="1.0.0" />
-		<PackageReference Include="Herald.Web.Swagger" Version="1.2.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
 	</ItemGroup>
