@@ -14,7 +14,7 @@ using WorkerService.Application.Features.GetFromExternalApi;
 
 namespace WorkerService.Worker.BackgroundServices
 {
-    public class ProcessGetFromExternalApiService : BackgroundService
+    public class ProcessGetFromExternalApiService : IScopedBackgroundService
     {
         private readonly IMediator _mediator;
         private readonly ILogger<ProcessGetFromExternalApiService> _logger;
@@ -27,24 +27,14 @@ namespace WorkerService.Worker.BackgroundServices
             _messageQueue = messageQueue;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            await foreach (var message in _messageQueue.Receive<GetFromExternalApiMessage>(stoppingToken))
             {
-                try
+                var result = await _mediator.Send(new GetFromExternalApiCommand() { PostalCode = message.PostalCode });
+                if (result.Status == Status.Sucess)
                 {
-                    await foreach (var message in _messageQueue.Receive<GetFromExternalApiMessage>(stoppingToken))
-                    {
-                        var result = await _mediator.Send(new GetFromExternalApiCommand() { PostalCode = message.PostalCode });
-                        if (result.Status == Status.Sucess)
-                        {
-                            await _messageQueue.Received(message);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error while process: {nameof(ProcessGetFromExternalApiService)}");
+                    await _messageQueue.Received(message);
                 }
             }
         }

@@ -53,11 +53,11 @@ namespace WorkerService.Infrastructure
             {
                 options.UseLazyLoadingProxies();
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")).UseSnakeCaseNamingConvention();
-            }, ServiceLifetime.Singleton);
+            });
 
-            services.AddHeraldEntityFramework<EntityContext>(ServiceLifetime.Singleton);
+            services.AddHeraldEntityFramework<EntityContext>();
 
-            services.AddSingleton<ISomethingRepository, SomethingRepository>();
+            services.AddScoped<ISomethingRepository, SomethingRepository>();
 
             return services;
         }

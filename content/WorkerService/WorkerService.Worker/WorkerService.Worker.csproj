@@ -6,10 +6,6 @@
 		<UserSecretsId>76f42217-1e5d-423c-ae5c-808fae60f813</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
-	
-	<ItemGroup>
-		<Folder Include="BackgroundServices\" />
-	</ItemGroup>
 
 	<ItemGroup Condition="'$(nodatabase)' == 'true'">
 		<Compile Remove="BackgroundServices\ProcessGetFromDataBaseService.cs" />

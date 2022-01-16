@@ -14,7 +14,7 @@ using WorkerService.Application.Features.SendToQueue;
 
 namespace WorkerService.Worker.BackgroundServices
 {
-    public class ProcessSendToQueueService : BackgroundService
+    public class ProcessSendToQueueService : IScopedBackgroundService
     {
         private readonly IMediator _mediator;
         private readonly ILogger<ProcessSendToQueueService> _logger;
@@ -27,24 +27,14 @@ namespace WorkerService.Worker.BackgroundServices
             _messageQueue = messageQueue;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            await foreach (var message in _messageQueue.Receive<SendToQueueMessage>(stoppingToken))
             {
-                try
+                var result = await _mediator.Send(new SendToQueueCommand() { Description = message.Description });
+                if (result.Status == Status.Sucess)
                 {
-                    await foreach (var message in _messageQueue.Receive<SendToQueueMessage>(stoppingToken))
-                    {
-                        var result = await _mediator.Send(new SendToQueueCommand() { Description = message.Description });
-                        if (result.Status == Status.Sucess)
-                        {
-                            await _messageQueue.Received(message);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error while process: {nameof(ProcessSendToQueueService)}");
+                    await _messageQueue.Received(message);
                 }
             }
         }
