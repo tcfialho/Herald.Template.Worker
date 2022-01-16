@@ -2,7 +2,7 @@
 
 using System;
 
-namespace WorkerService.Application.Features.GetAddressByPostalCode
+namespace WorkerService.Application.Features.GetFromExternalApi
 {
     public class GetFromExternalApiMessage : MessageBase
     {

@@ -4,7 +4,7 @@ using Herald.Result;
 
 using MediatR;
 
-namespace WorkerService.Application.Features.GetAddressByPostalCode
+namespace WorkerService.Application.Features.GetFromExternalApi
 {
     public partial class GetFromExternalApiCommand : IRequest<Result<GetFromExternalApiResult>>
     {

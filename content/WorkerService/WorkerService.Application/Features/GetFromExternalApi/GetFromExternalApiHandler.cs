@@ -9,7 +9,7 @@ using MediatR;
 
 using WorkerService.Application.Infrastructure.WebServices;
 
-namespace WorkerService.Application.Features.GetAddressByPostalCode
+namespace WorkerService.Application.Features.GetFromExternalApi
 {
     public class GetFromExternalApiHandler : IRequestHandler<GetFromExternalApiCommand, Result<GetFromExternalApiResult>>
     {

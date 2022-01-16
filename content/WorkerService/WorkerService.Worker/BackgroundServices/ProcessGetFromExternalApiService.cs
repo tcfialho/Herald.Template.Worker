@@ -10,7 +10,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-using WorkerService.Application.Features.GetAddressByPostalCode;
+using WorkerService.Application.Features.GetFromExternalApi;
 
 namespace WorkerService.Worker.BackgroundServices
 {
