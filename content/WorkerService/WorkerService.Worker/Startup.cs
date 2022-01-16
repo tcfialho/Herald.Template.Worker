@@ -35,7 +35,7 @@ namespace WorkerService.Worker
 #if (!nodatabase)
             services.AddRepositories(Configuration);
 #endif
-            services.AddBackgroundServices();
+            services.AddScopedBackgroudServices();
             services.AddJaegerTracing();
             services.AddHealthChecks();
         }

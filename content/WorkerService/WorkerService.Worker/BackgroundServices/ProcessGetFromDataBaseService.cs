@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,7 +16,7 @@ using WorkerService.Application.Features.GetFromDataBase;
 
 namespace WorkerService.Worker.BackgroundServices
 {
-    public class ProcessGetFromDataBaseService : BackgroundService
+    public class ProcessGetFromDataBaseService : IScopedBackgroundService
     {
         private readonly IMediator _mediator;
         private readonly ILogger<ProcessGetFromDataBaseService> _logger;
@@ -27,24 +29,14 @@ namespace WorkerService.Worker.BackgroundServices
             _messageQueue = messageQueue;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        public async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            await foreach (var message in _messageQueue.Receive<GetFromDataBaseMessage>(stoppingToken))
             {
-                try
+                var result = await _mediator.Send(new GetFromDataBaseCommand());
+                if (result.Status == Status.Sucess)
                 {
-                    await foreach (var message in _messageQueue.Receive<GetFromDataBaseMessage>(stoppingToken))
-                    {
-                        var result = await _mediator.Send(new GetFromDataBaseCommand());
-                        if (result.Status == Status.Sucess)
-                        {
-                            await _messageQueue.Received(message);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error while process: {nameof(ProcessGetFromDataBaseService)}");
+                    await _messageQueue.Received(message);
                 }
             }
         }
