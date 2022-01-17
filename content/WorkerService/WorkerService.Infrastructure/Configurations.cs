@@ -24,7 +24,6 @@ using Herald.MessageQueue.Sqs;
 #if (!noexternalapi)
 using Refit;
 using WorkerService.Application.Infrastructure.WebServices;
-using Herald.EntityFramework.Persistance;
 #endif
 
 namespace WorkerService.Infrastructure

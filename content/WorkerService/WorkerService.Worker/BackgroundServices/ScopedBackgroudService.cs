@@ -27,6 +27,8 @@ namespace WorkerService.Worker.BackgroundServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Yield();
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
