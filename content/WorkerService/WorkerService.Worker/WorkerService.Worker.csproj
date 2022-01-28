@@ -7,6 +7,10 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<None Remove="**\.keep" />
+	</ItemGroup>
+
 	<ItemGroup Condition="'$(nodatabase)' == 'true'">
 		<Compile Remove="BackgroundServices\ProcessGetFromDataBaseService.cs" />
 	</ItemGroup>

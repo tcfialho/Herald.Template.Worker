@@ -11,7 +11,7 @@
     },
     "sourcename": "WorkerService",
     "preferNameDirectory": true,
-    "placeholderFilename": "-.-",
+    "placeholderFilename": ".keep",
     "symbols": {
         "no-database": {
             "description": "Put database sample into generated project.",
@@ -54,6 +54,29 @@
                         "dockerignore": ".dockerignore",
                         "gitignore": ".gitignore"
                     }
+                }, {
+                    "condition": "(nodatabase)",
+                    "exclude": [
+                        "**/GetFromDataBase/**/*",
+						"**/Migrations/**/*",
+						"**/Persistance/**/*",
+						"**/Repositories/**/*",
+						"**/Entities/*.cs",
+						"**/ProcessGetFromDataBaseService.cs"
+                    ]
+                }, {
+                    "condition": "(noqueue)",
+                    "exclude": [
+                        "**/SendToQueue/**/*",
+						"**/ProcessSendToQueueService.cs"
+                    ]
+                }, {
+                    "condition": "(noexternalapi)",
+                    "exclude": [
+                        "**/GetFromExternalApi/**/*",
+						"**/WebServices/**/*",
+						"**/ProcessGetFromExternalApiService.cs"
+                    ]
                 }
             ]
         }
