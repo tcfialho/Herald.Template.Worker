@@ -18,9 +18,7 @@ using WorkerService.Infrastructure.Persistance;
 using WorkerService.Infrastructure.Repositories;
 using WorkerService.Application.Infrastructure.Repositories;
 #endif
-#if (!noqueue)
 using Herald.MessageQueue.Sqs;
-#endif
 #if (!noexternalapi)
 using Refit;
 using WorkerService.Application.Infrastructure.WebServices;
@@ -62,14 +60,12 @@ namespace WorkerService.Infrastructure
         }
 #endif
 
-#if (!noqueue)
         public static IServiceCollection AddQueues(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMessageQueueSqs(setup => configuration.GetSection("MessageQueueOptions").Bind(setup));
 
             return services;
         }
-#endif
 
 #if (!noexternalapi)
         public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)

@@ -26,9 +26,7 @@ namespace WorkerService.Worker
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddFeatures(Configuration);
-#if (!noqueue)
             services.AddQueues(Configuration);
-#endif
 #if (!noexternalapi)
             services.AddWebServices(Configuration);
 #endif

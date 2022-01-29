@@ -26,7 +26,6 @@ services:
             POSTGRES_USER: "admin"
             POSTGRES_PASSWORD: "password"
 #endif
-#if (!noqueue)
     localstack:
         image: localstack/localstack:0.11.2
         ports:
@@ -58,4 +57,3 @@ services:
                 aws --endpoint-url=http://localstack:4566 sqs list-queues
                 echo 'SQS-DONE!' 
             "
-#endif
