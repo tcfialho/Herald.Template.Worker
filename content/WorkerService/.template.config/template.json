@@ -58,27 +58,48 @@
                     "condition": "(nodatabase)",
                     "exclude": [
                         "**/GetFromDataBase/**/*",
-						"**/Migrations/**/*",
-						"**/Persistance/**/*",
-						"**/Repositories/**/*",
-						"**/Entities/*.cs",
-						"**/ProcessGetFromDataBaseService.cs"
+                        "**/Migrations/**/*",
+                        "**/Persistance/**/*",
+                        "**/Repositories/**/*",
+                        "**/Entities/*.cs",
+                        "**/ProcessGetFromDataBaseService.cs"
                     ]
                 }, {
                     "condition": "(noqueue)",
                     "exclude": [
                         "**/SendToQueue/**/*",
-						"**/ProcessSendToQueueService.cs"
+                        "**/ProcessSendToQueueService.cs"
                     ]
                 }, {
                     "condition": "(noexternalapi)",
                     "exclude": [
                         "**/GetFromExternalApi/**/*",
-						"**/WebServices/**/*",
-						"**/ProcessGetFromExternalApiService.cs"
+                        "**/WebServices/**/*",
+                        "**/ProcessGetFromExternalApiService.cs"
                     ]
                 }
             ]
         }
-    ]
+    ],
+    "SpecialCustomOperations": {
+        "**/*.yml": {
+            "operations": [{
+                    "type": "conditional",
+                    "configuration": {
+                        "if": ["#if"],
+                        "else": ["#else"],
+                        "elseif": ["#elseif"],
+                        "endif": ["#endif"],
+                        "actionableIf": ["##if"],
+                        "actionableElse": ["##else"],
+                        "actionableElseif": ["##elseif"],
+                        "actions": ["uncomment", "reduceComment"],
+                        "trim": "true",
+                        "wholeLine": "true",
+                        "evaluator": "C++"
+                    }
+                }
+            ]
+        }
+    }
 }
