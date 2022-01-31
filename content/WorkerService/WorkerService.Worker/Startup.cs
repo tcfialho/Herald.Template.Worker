@@ -34,7 +34,7 @@ namespace WorkerService.Worker
             services.AddRepositories(Configuration);
 #endif
             services.AddScopedBackgroudServices();
-            services.AddJaegerTracing();
+            services.AddJaegerTracing(setup => Configuration.GetSection("JaegerOptions").Bind(setup));
             services.AddHealthChecks();
         }
 
