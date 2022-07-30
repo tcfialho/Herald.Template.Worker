@@ -1,4 +1,5 @@
-﻿using Herald.EntityFramework.Repositories;
+﻿#if (postgre || mysql || sqlserver)
+using Herald.EntityFramework.Repositories;
 
 using WorkerService.Application.Entities;
 
@@ -8,3 +9,4 @@ namespace WorkerService.Application.Infrastructure.Repositories
     {
     }
 }
+#endif

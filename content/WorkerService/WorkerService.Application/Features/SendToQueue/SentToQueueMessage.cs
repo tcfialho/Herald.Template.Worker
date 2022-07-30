@@ -1,6 +1,6 @@
-﻿using Herald.MessageQueue;
+﻿using System;
 
-using System;
+using Herald.MessageQueue;
 
 namespace WorkerService.Application.Features.SendToQueue
 {

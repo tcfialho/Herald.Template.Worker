@@ -1,4 +1,5 @@
-﻿using Herald.MessageQueue;
+﻿#if (postgre || mysql || sqlserver)
+using Herald.MessageQueue;
 using Herald.Result;
 
 using MediatR;
@@ -38,3 +39,4 @@ namespace WorkerService.Worker.BackgroundServices
         }
     }
 }
+#endif

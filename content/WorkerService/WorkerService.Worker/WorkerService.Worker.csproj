@@ -11,19 +11,9 @@
 		<None Remove="**\.keep" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(nodatabase)' == 'true'">
-		<Compile Remove="BackgroundServices\ProcessGetFromDataBaseService.cs" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(noexternalapi)' == 'true'">
-		<Compile Remove="BackgroundServices\ProcessGetFromExternalApiService.cs" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(noqueue)' == 'true'">
-		<Compile Remove="BackgroundServices\ProcessSendToQueueService.cs" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Herald.Observability.Jaeger" Version="1.0.0" />
-		<PackageReference Include="Herald.Result.Mvc" Version="1.0.0" />
+		<PackageReference Include="Herald.Result.Mvc" Version="3.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

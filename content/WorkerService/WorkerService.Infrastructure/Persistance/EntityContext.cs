@@ -1,4 +1,4 @@
-﻿
+﻿#if (postgre || mysql || sqlserver)
 using Microsoft.EntityFrameworkCore;
 
 using WorkerService.Application.Entities;
@@ -12,7 +12,7 @@ namespace WorkerService.Infrastructure.Persistance
 
         public EntityContext()
         {
-            //dotnet ef migrations add MyMigration --project ..\WorkerService.Infrastructure
+            //dotnet ef --startup-project WorkerService.Worker migrations add Initial --project WorkerService.Infrastructure
 
             this.Database.EnsureCreated();
         }
@@ -27,3 +27,4 @@ namespace WorkerService.Infrastructure.Persistance
         }
     }
 }
+#endif

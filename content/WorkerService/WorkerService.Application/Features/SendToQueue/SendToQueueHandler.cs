@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿#if (sqs || kafka || rabbitmq || azure)
+using System.Threading;
 using System.Threading.Tasks;
 
 using Herald.MessageQueue;
@@ -27,3 +28,4 @@ namespace WorkerService.Application.Features.SendToQueue
         }
     }
 }
+#endif
