@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+    workerservice.worker:
+        environment:
+            - ASPNETCORE_URLS=http://+:80
+        ports:
+            - "5000:80"

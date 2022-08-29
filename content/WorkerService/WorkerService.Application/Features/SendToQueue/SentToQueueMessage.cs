@@ -1,17 +1,16 @@
-﻿using Herald.MessageQueue;
+﻿using System;
 
-using System;
+using Herald.MessageQueue;
+using Herald.MessageQueue.Attributes;
 
 namespace WorkerService.Application.Features.SendToQueue
 {
+#if (rabbitmq)
+    [RoutingKey("SentToQueueMessageQueue")]
+    [ExchangeName("WorkerServiceExchange")]
+#endif
     public class SentToQueueMessage : MessageBase
     {
-        public SentToQueueMessage()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; }
         public string Description { get; set; }
     }
 }

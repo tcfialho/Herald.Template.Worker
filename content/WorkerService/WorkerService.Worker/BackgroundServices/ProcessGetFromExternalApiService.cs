@@ -1,4 +1,6 @@
-﻿using Herald.MessageQueue;
+﻿#if (!noexternalapi)
+#if (sqs || kafka || rabbitmq || azure)
+using Herald.MessageQueue;
 using Herald.Result;
 
 using MediatR;
@@ -38,3 +40,5 @@ namespace WorkerService.Worker.BackgroundServices
         }
     }
 }
+#endif
+#endif
